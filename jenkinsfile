@@ -1,11 +1,24 @@
 pipeline {
     agent any 
+    tools{
+        nodejs "nodejs"
+    }
+    environment
+        {
+        LINK = 'https://git.heroku.com/mercip-app.git'
+        }
     
     stages {
-        stage('clone repository') {
+        stage('Clone repository') {
             steps {
                 echo 'Cloning the Repository'
                 git 'https://github.com/MercylineMochama/gallery.git'
+            }
+        }
+        
+        stage ('Build') {
+            steps {
+                sh 'npm install'
             }
         }
 
@@ -26,3 +39,6 @@ pipeline {
          sh 'npm test'  
        }
        }
+       
+   }
+}
